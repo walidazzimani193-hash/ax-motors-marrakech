@@ -757,9 +757,35 @@
       .why-grid { grid-template-columns: 1fr; max-width: 280px; margin: 0 auto; }
       .social-links { flex-direction: column; align-items: center; }
     }
+    #splash {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.8s ease;
+    }
+    #splash.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+    #splash-logo {
+      width: min(240px, 60vw);
+      animation: splashIn 0.9s cubic-bezier(0.2,0,0.2,1) forwards;
+    }
+    @keyframes splashIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to   { opacity: 1; transform: scale(1); }
+    }
   </style>
 </head>
 <body>
+
+  <div id="splash">
+    <img id="splash-logo" src="assets/logo.jpg" alt="MY Motors" />
+  </div>
 
   <!-- ══ NAVBAR ══ -->
   <nav id="navbar" role="navigation" aria-label="Navigation principale">
@@ -1105,6 +1131,15 @@
   </footer>
 
   <script>
+    // ── Splash screen ──
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const splash = document.getElementById('splash');
+        splash.classList.add('hide');
+        splash.addEventListener('transitionend', () => splash.remove());
+      }, 2000);
+    });
+
     // ── Navbar scroll behaviour ──
     const navbar = document.getElementById('navbar');
     const onScroll = () => {
