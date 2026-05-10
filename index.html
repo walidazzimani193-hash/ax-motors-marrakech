@@ -284,9 +284,12 @@
     .bike-slider {
       position: relative;
       width: 100%;
-      aspect-ratio: 16 / 10;
+      aspect-ratio: 4 / 3;
       overflow: hidden;
       background: var(--bg3);
+    }
+    @media (min-width: 768px) {
+      .bike-slider { aspect-ratio: 16 / 10; }
     }
     .bike-slider-track {
       display: flex;
