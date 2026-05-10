@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AX Motors Marrakech — Location de Motos & Circuits Guidés</title>
+  <meta name="description" content="Location de motos premium et circuits guidés à Marrakech. Honda X-ADV, Ténéré 700 & World Raid disponibles tous les jours. Réservez instantanément sur WhatsApp." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #F5A800;
+      --gold-dark: #d4900a;
+      --bg: #0F0F0F;
+      --bg2: #181818;
+      --bg3: #1e1e1e;
+      --text: #FFFFFF;
+      --muted: #A0A0A0;
+      --radius: 12px;
+      --nav-h: 68px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Utility ── */
+    .container {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .section { padding: 88px 0; }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 900;
+      text-align: center;
+      margin-bottom: 56px;
+      letter-spacing: -0.02em;
+    }
+    .section-title span { color: var(--gold); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+      white-space: nowrap;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-gold {
+      background: var(--gold);
+      color: #000;
+      box-shadow: 0 4px 24px rgba(245,168,0,0.35);
+    }
+    .btn-gold:hover {
+      background: #ffc22a;
+      box-shadow: 0 8px 32px rgba(245,168,0,0.5);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--gold);
+      border: 2px solid var(--gold);
+    }
+    .btn-outline:hover {
+      background: var(--gold);
+      color: #000;
+    }
+    /* WhatsApp icon SVG inline */
+    .wa-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    /* ── Fade-in animations ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-in-d1 { transition-delay: 0.1s; }
+    .fade-in-d2 { transition-delay: 0.2s; }
+    .fade-in-d3 { transition-delay: 0.3s; }
+    .fade-in-d4 { transition-delay: 0.4s; }
+
+    /* ══════════════════════════════════════
+       NAVBAR
+    ══════════════════════════════════════ */
+    #navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      background: transparent;
+      transition: background 0.35s ease, backdrop-filter 0.35s ease, box-shadow 0.35s ease;
+    }
+    #navbar.scrolled {
+      background: rgba(15, 15, 15, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.06);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .nav-logo img {
+      height: 42px;
+      width: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .nav-logo-placeholder {
+      height: 42px;
+      width: 42px;
+      border-radius: 50%;
+      background: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 0.85rem;
+      color: #000;
+      letter-spacing: -0.03em;
+    }
+    .nav-brand {
+      font-weight: 900;
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
+    }
+    .nav-brand span { color: var(--gold); }
+    .nav-cta { font-size: 0.9rem; padding: 10px 20px; }
+
+    /* ══════════════════════════════════════
+       HERO
+    ══════════════════════════════════════ */
+    #hero {
+      position: relative;
+      height: 100svh;
+      min-height: 560px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('/assets/hero.jpg') center center / cover no-repeat;
+      background-color: #1a1a1a;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.55) 0%,
+        rgba(0,0,0,0.45) 60%,
+        rgba(0,0,0,0.75) 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 20px;
+      max-width: 760px;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      background: var(--gold);
+      color: #000;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 50px;
+      margin-bottom: 22px;
+    }
+    .hero-h1 {
+      font-size: clamp(2.4rem, 7vw, 4.2rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 18px;
+    }
+    .hero-h1 span { color: var(--gold); }
+    .hero-sub {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: rgba(255,255,255,0.82);
+      margin-bottom: 36px;
+      font-weight: 400;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .scroll-indicator {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      animation: bounce 2s infinite;
+    }
+    .scroll-arrow {
+      width: 24px;
+      height: 24px;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ══════════════════════════════════════
+       FLEET
+    ══════════════════════════════════════ */
+    #fleet { background: var(--bg); }
+    .fleet-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+    @media (min-width: 768px) {
+      .fleet-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .bike-card {
+      background: var(--bg2);
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.07);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .bike-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.5);
+      border-color: var(--gold);
+    }
+    .bike-img-wrap {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: var(--bg3);
+      position: relative;
+    }
+    .bike-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .bike-card:hover .bike-img-wrap img { transform: scale(1.04); }
+    .bike-img-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-align: center;
+      padding: 16px;
+    }
+    .bike-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      flex: 1;
+    }
+    .bike-name {
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .bike-specs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .spec-badge {
+      background: rgba(245,168,0,0.12);
+      color: var(--gold);
+      border: 1px solid rgba(245,168,0,0.3);
+      padding: 4px 12px;
+      border-radius: 50px;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+    .bike-body .btn { margin-top: auto; width: 100%; justify-content: center; }
+
+    /* ══════════════════════════════════════
+       TOURS
+    ══════════════════════════════════════ */
+    #tours { background: var(--bg2); }
+    .tours-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    @media (min-width: 768px) {
+      .tours-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .tour-card {
+      background: var(--bg);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      border: 1px solid rgba(255,255,255,0.07);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      position: relative;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .tour-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+    .tour-card.popular {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 1px var(--gold), 0 16px 48px rgba(245,168,0,0.15);
+    }
+    .popular-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gold);
+      color: #000;
+      font-weight: 800;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 16px;
+      border-radius: 50px;
+      white-space: nowrap;
+    }
+    .tour-duration {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .tour-name {
+      font-size: 1.6rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+    }
+    .tour-price {
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+    .tour-price strong {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+    .tour-includes {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .tour-includes li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.85);
+    }
+    .check-icon {
+      width: 18px;
+      height: 18px;
+      background: rgba(245,168,0,0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .check-icon svg { width: 10px; height: 10px; }
+    .tour-card .btn { width: 100%; justify-content: center; margin-top: auto; }
+
+    /* ══════════════════════════════════════
+       WHY US
+    ══════════════════════════════════════ */
+    #why { background: var(--bg); }
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px 24px;
+    }
+    @media (min-width: 768px) {
+      .why-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    .why-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 16px;
+    }
+    .why-icon {
+      width: 64px;
+      height: 64px;
+      background: rgba(245,168,0,0.1);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(245,168,0,0.2);
+    }
+    .why-icon svg {
+      width: 28px;
+      height: 28px;
+      stroke: var(--gold);
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .why-title {
+      font-weight: 700;
+      font-size: 1rem;
+      line-height: 1.35;
+    }
+    .why-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* ══════════════════════════════════════
+       CONTACT
+    ══════════════════════════════════════ */
+    #contact {
+      background: var(--bg2);
+      padding: 88px 0;
+    }
+    .contact-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 32px;
+    }
+    .contact-title {
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+    }
+    .contact-sub {
+      color: var(--muted);
+      font-size: 1rem;
+      margin-top: -20px;
+    }
+    .contact-main-btn {
+      font-size: 1.1rem;
+      padding: 18px 36px;
+    }
+    .social-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 10px 20px;
+      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+    .social-link:hover {
+      color: var(--text);
+      border-color: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.05);
+    }
+    .social-link svg {
+      width: 18px;
+      height: 18px;
+    }
+    .reply-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .reply-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #25D366;
+      box-shadow: 0 0 0 3px rgba(37,211,102,0.2);
+      animation: pulse-green 2s infinite;
+    }
+    @keyframes pulse-green {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(37,211,102,0.2); }
+      50% { box-shadow: 0 0 0 6px rgba(37,211,102,0.08); }
+    }
+
+    /* ══════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════ */
+    #footer {
+      background: var(--bg);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 40px 0;
+    }
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      text-align: center;
+    }
+    @media (min-width: 640px) {
+      .footer-inner {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+      }
+    }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .footer-logo img {
+      height: 36px;
+      width: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .footer-logo-placeholder {
+      height: 36px;
+      width: 36px;
+      border-radius: 50%;
+      background: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 0.75rem;
+      color: #000;
+    }
+    .footer-brand {
+      font-weight: 800;
+      font-size: 1rem;
+    }
+    .footer-brand span { color: var(--gold); }
+    .footer-copy {
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+    .footer-nav {
+      display: flex;
+      gap: 24px;
+    }
+    .footer-nav a {
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .footer-nav a:hover { color: var(--gold); }
+
+    /* ══════════════════════════════════════
+       RESPONSIVE TWEAKS
+    ══════════════════════════════════════ */
+    @media (max-width: 480px) {
+      .section { padding: 64px 0; }
+      .section-title { margin-bottom: 40px; }
+      .nav-brand { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ NAVBAR ══ -->
+  <nav id="navbar" role="navigation" aria-label="Navigation principale">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#" class="nav-logo" aria-label="Accueil AX Motors Marrakech">
+          <img src="/assets/logo.png" alt="Logo AX Motors"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="nav-logo-placeholder" style="display:none;">AX</div>
+          <span class="nav-brand">AX <span>Motors</span></span>
+        </a>
+        <a href="https://wa.me/212783990736" target="_blank" rel="noopener noreferrer"
+           class="btn btn-gold nav-cta" aria-label="Nous contacter sur WhatsApp">
+          <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.128.557 4.126 1.532 5.858L.057 23.492a.5.5 0 0 0 .6.6l5.643-1.469A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.83 9.83 0 0 1-5.028-1.38l-.36-.214-3.73.972.993-3.635-.235-.374A9.817 9.817 0 0 1 2.182 12C2.182 6.57 6.569 2.182 12 2.182S21.818 6.57 21.818 12 17.431 21.818 12 21.818z"/>
+          </svg>
+          +212 783-990736
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ══ -->
+  <section id="hero" aria-label="Hero">
+    <div class="hero-bg" role="img" aria-label="Moto sur une route de montagne près de Marrakech"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="hero-eyebrow fade-in">Marrakech, Maroc</span>
+      <h1 class="hero-h1 fade-in fade-in-d1">
+        Explorez Marrakech<br /><span>à Deux Roues</span>
+      </h1>
+      <p class="hero-sub fade-in fade-in-d2">Location de motos premium &amp; circuits guidés</p>
+      <div class="hero-actions fade-in fade-in-d3">
+        <a href="https://wa.me/212783990736" target="_blank" rel="noopener noreferrer"
+           class="btn btn-gold">
+          <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.128.557 4.126 1.532 5.858L.057 23.492a.5.5 0 0 0 .6.6l5.643-1.469A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.83 9.83 0 0 1-5.028-1.38l-.36-.214-3.73.972.993-3.635-.235-.374A9.817 9.817 0 0 1 2.182 12C2.182 6.57 6.569 2.182 12 2.182S21.818 6.57 21.818 12 17.431 21.818 12 21.818z"/>
+          </svg>
+          Réserver sur WhatsApp
+        </a>
+        <a href="#fleet" class="btn btn-outline">Voir notre flotte</a>
+      </div>
+    </div>
+    <div class="scroll-indicator" aria-hidden="true">
+      <svg class="scroll-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+      Défiler
+    </div>
+  </section>
+
+  <!-- ══ FLEET ══ -->
+  <section id="fleet" class="section" aria-labelledby="fleet-title">
+    <div class="container">
+      <h2 id="fleet-title" class="section-title fade-in">Notre <span>Flotte</span></h2>
+      <div class="fleet-grid">
+
+        <!-- Honda X-ADV -->
+        <article class="bike-card fade-in fade-in-d1">
+          <div class="bike-img-wrap">
+            <img src="/assets/bike-xadv.jpg" alt="Honda X-ADV scooter aventure"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+            <div class="bike-img-placeholder" style="display:none;">Honda X-ADV</div>
+          </div>
+          <div class="bike-body">
+            <h3 class="bike-name">Honda X-ADV</h3>
+            <div class="bike-specs">
+              <span class="spec-badge">745 cc</span>
+              <span class="spec-badge">Automatique DCT</span>
+              <span class="spec-badge">Scooter Aventure</span>
+            </div>
+            <a href="https://wa.me/212783990736?text=Bonjour!%20Je%20souhaite%20réserver%20la%20Honda%20X-ADV."
+               target="_blank" rel="noopener noreferrer" class="btn btn-gold">
+              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.128.557 4.126 1.532 5.858L.057 23.492a.5.5 0 0 0 .6.6l5.643-1.469A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.83 9.83 0 0 1-5.028-1.38l-.36-.214-3.73.972.993-3.635-.235-.374A9.817 9.817 0 0 1 2.182 12C2.182 6.57 6.569 2.182 12 2.182S21.818 6.57 21.818 12 17.431 21.818 12 21.818z"/>
+              </svg>
+              Réserver cette moto
+            </a>
+          </div>
+        </article>
+
+        <!-- Ténéré World Raid -->
+        <article class="bike-card fade-in fade-in-d2">
+          <div class="bike-img-wrap">
+            <img src="/assets/bike-tenere-wr.jpg" alt="Yamaha Ténéré World Raid"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+            <div class="bike-img-placeholder" style="display:none;">Ténéré World Raid</div>
+          </div>
+          <div class="bike-body">
+            <h3 class="bike-name">Ténéré World Raid</h3>
+            <div class="bike-specs">
+              <span class="spec-badge">689 cc</span>
+              <span class="spec-badge">6 vitesses manuelle</span>
+              <span class="spec-badge">Rallye Enduro</span>
+            </div>
+            <a href="https://wa.me/212783990736?text=Bonjour!%20Je%20souhaite%20réserver%20la%20Ténéré%20World%20Raid."
+               target="_blank" rel="noopener noreferrer" class="btn btn-gold">
+              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.128.557 4.126 1.532 5.858L.057 23.492a.5.5 0 0 0 .6.6l5.643-1.469A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.83 9.83 0 0 1-5.028-1.38l-.36-.214-3.73.972.993-3.635-.235-.374A9.817 9.817 0 0 1 2.182 12C2.182 6.57 6.569 2.182 12 2.182S21.818 6.57 21.818 12 17.431 21.818 12 21.818z"/>
+              </svg>
+              Réserver cette moto
+            </a>
+          </div>
+        </article>
+
+        <!-- Ténéré 700 2025 -->
+        <article class="bike-card fade-in fade-in-d3">
+          <div class="bike-img-wrap">
+            <img src="/assets/bike-tenere700.jpg" alt="Yamaha Ténéré 700 2025"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+            <div class="bike-img-placeholder" style="display:none;">Ténéré 700 2025</div>
+          </div>
+          <div class="bike-body">
+            <h3 class="bike-name">Ténéré 700 2025</h3>
+            <div class="bike-specs">
+              <span class="spec-badge">689 cc</span>
+              <span class="spec-badge">6 vitesses manuelle</span>
+              <span class="spec-badge">Aventure</span>
+            </div>
+            <a href="https://wa.me/212783990736?text=Bonjour!%20Je%20souhaite%20réserver%20la%20Ténéré%20700%202025."
+               target="_blank" rel="noopener noreferrer" class="btn btn-gold">
+              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.128.557 4.126 1.532 5.858L.057 23.492a.5.5 0 0 0 .6.6l5.643-1.469A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.83 9.83 0 0 1-5.028-1.38l-.36-.214-3.73.972.993-3.635-.235-.374A9.817 9.817 0 0 1 2.182 12C2.182 6.57 6.569 2.182 12 2.182S21.818 6.57 21.818 12 17.431 21.818 12 21.818z"/>
+              </svg>
+              Réserver cette moto
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ TOURS ══ -->
+  <section id="tours" class="section" aria-labelledby="tours-title">
+    <div class="container">
+      <h2 id="tours-title" class="section-title fade-in">Circuits <span>Guidés</span></h2>
+      <div class="tours-grid">
+
+        <!-- 1 Jour -->
+        <article class="tour-card fade-in fade-in-d1">
+          <p class="tour-duration">1 Jour</p>
+          <h3 class="tour-name">Escapade Journée</h3>
+          <div class="tour-price">à partir de <strong>2 500 MAD</strong></div>
+          <ul class="tour-includes" aria-label="Ce qui est inclus">
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="#F5A800" stroke-width="2" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></span>Carburant inclus</li>
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="#F5A800" stroke-width="2" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></span>Équipement complet</li>
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="#F5A800" stroke-width="2" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></span>Guide expert local</li>
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="#F5A800" stroke-width="2" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></span>Assistance routière</li>
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="#F5A800" stroke-width="2" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></span>Assurance incluse</li>
+          </ul>
+          <a href="https://wa.me/212783990736?text=Bonjour!%20Je%20suis%20intéressé%20par%20le%20circuit%20d'1%20jour."
+             target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+            <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.128.557 4.126 1.532 5.858L.057 23.492a.5.5 0 0 0 .6.6l5.643-1.469A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.83 9.83 0 0 1-5.028-1.38l-.36-.214-3.73.972.993-3.635-.235-.374A9.817 9.817 0 0 1 2.182 12C2.182 6.57 6.569 2.182 12 2.182S21.818 6.57 21.818 12 17.431 21.818 12 21.818z"/>
+            </svg>
+            Renseignements sur WhatsApp
+          </a>
+        </article>
+
+        <!-- 2 Jours — Le Plus Populaire -->
+        <article class="tour-card popular fade-in fade-in-d2">
+          <div class="popular-badge">Le Plus Populaire</div>
+          <p class="tour-duration">2 Jours</p>
+          <h3 class="tour-name">Atlas Explorer</h3>
+          <div class="tour-price">à partir de <strong>6 500 MAD</strong></div>
+          <ul class="tour-includes" aria-label="Ce qui est inclus">
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="#F5A800" stroke-width="2" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></span>Carburant inclus</li>
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="#F5A800" stroke-width="2" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></span>Hébergement</li>
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="#F5A800" stroke-width="2" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></span>Tous les repas</li>
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="#F5A800" stroke-width="2" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></span>Équipement complet</li>
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="#F5A800" stroke-width="2" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></span>Guide expert local</li>
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="#F5A800" stroke-width="2" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></span>Assistance routière</li>
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="#F5A800" stroke-width="2" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></span>Assurance incluse</li>
+          </ul>
+          <a href="https://wa.me/212783990736?text=Bonjour!%20Je%20suis%20intéressé%20par%20le%20circuit%202%20jours%20Atlas%20Explorer."
+             target="_blank" rel="noopener noreferrer" class="btn btn-gold">
+            <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.128.557 4.126 1.532 5.858L.057 23.492a.5.5 0 0 0 .6.6l5.643-1.469A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.83 9.83 0 0 1-5.028-1.38l-.36-.214-3.73.972.993-3.635-.235-.374A9.817 9.817 0 0 1 2.182 12C2.182 6.57 6.569 2.182 12 2.182S21.818 6.57 21.818 12 17.431 21.818 12 21.818z"/>
+            </svg>
+            Réserver maintenant
+          </a>
+        </article>
+
+        <!-- 3 Jours -->
+        <article class="tour-card fade-in fade-in-d3">
+          <p class="tour-duration">3 Jours</p>
+          <h3 class="tour-name">Odyssée du Désert</h3>
+          <div class="tour-price">à partir de <strong>10 000 MAD</strong></div>
+          <ul class="tour-includes" aria-label="Ce qui est inclus">
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="#F5A800" stroke-width="2" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></span>Carburant inclus</li>
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="#F5A800" stroke-width="2" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></span>Hébergement</li>
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="#F5A800" stroke-width="2" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></span>Tous les repas</li>
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="#F5A800" stroke-width="2" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></span>Équipement complet</li>
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="#F5A800" stroke-width="2" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></span>Guide expert local</li>
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="#F5A800" stroke-width="2" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></span>Assistance routière</li>
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="#F5A800" stroke-width="2" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg></span>Assurance incluse</li>
+          </ul>
+          <a href="https://wa.me/212783990736?text=Bonjour!%20Je%20suis%20intéressé%20par%20le%20circuit%203%20jours%20Odyssée%20du%20Désert."
+             target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+            <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.128.557 4.126 1.532 5.858L.057 23.492a.5.5 0 0 0 .6.6l5.643-1.469A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.83 9.83 0 0 1-5.028-1.38l-.36-.214-3.73.972.993-3.635-.235-.374A9.817 9.817 0 0 1 2.182 12C2.182 6.57 6.569 2.182 12 2.182S21.818 6.57 21.818 12 17.431 21.818 12 21.818z"/>
+            </svg>
+            Renseignements sur WhatsApp
+          </a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ WHY US ══ -->
+  <section id="why" class="section" aria-labelledby="why-title">
+    <div class="container">
+      <h2 id="why-title" class="section-title fade-in">Pourquoi Choisir <span>AX Motors</span></h2>
+      <div class="why-grid">
+
+        <div class="why-item fade-in fade-in-d1">
+          <div class="why-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3 class="why-title">Motos premium, entretenues chaque jour</h3>
+          <p class="why-desc">Chaque moto est inspectée et révisée avant chaque location — aucune mauvaise surprise sur la route.</p>
+        </div>
+
+        <div class="why-item fade-in fade-in-d2">
+          <div class="why-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3 class="why-title">Équipement complet inclus</h3>
+          <p class="why-desc">Casque, veste, gants et tous les équipements de protection fournis pour chaque motard.</p>
+        </div>
+
+        <div class="why-item fade-in fade-in-d3">
+          <div class="why-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+          </div>
+          <h3 class="why-title">Guides experts locaux</h3>
+          <p class="why-desc">Nos guides connaissent chaque route, col et joyau caché entre Marrakech et le Sahara.</p>
+        </div>
+
+        <div class="why-item fade-in fade-in-d4">
+          <div class="why-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.83a16 16 0 0 0 6 6l.93-.93a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.78 16z"/></svg>
+          </div>
+          <h3 class="why-title">Assurance &amp; assistance incluses</h3>
+          <p class="why-desc">Couverture complète et assistance routière 24h/24, 7j/7 pour chaque location et circuit.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CONTACT ══ -->
+  <section id="contact" aria-labelledby="contact-title">
+    <div class="container">
+      <div class="contact-inner">
+        <h2 id="contact-title" class="contact-title fade-in">Prêt à Rouler ?</h2>
+        <p class="contact-sub fade-in">Nous répondons en quelques minutes</p>
+        <div class="reply-badge fade-in">
+          <span class="reply-dot"></span>
+          En ligne maintenant
+        </div>
+        <a href="https://wa.me/212783990736" target="_blank" rel="noopener noreferrer"
+           class="btn btn-gold contact-main-btn fade-in">
+          <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:24px;height:24px;">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.128.557 4.126 1.532 5.858L.057 23.492a.5.5 0 0 0 .6.6l5.643-1.469A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.83 9.83 0 0 1-5.028-1.38l-.36-.214-3.73.972.993-3.635-.235-.374A9.817 9.817 0 0 1 2.182 12C2.182 6.57 6.569 2.182 12 2.182S21.818 6.57 21.818 12 17.431 21.818 12 21.818z"/>
+          </svg>
+          WhatsApp: +212 783-990736
+        </a>
+        <div class="social-links fade-in">
+          <a href="https://www.snapchat.com/add/mymotors_212" target="_blank" rel="noopener noreferrer"
+             class="social-link" aria-label="Snapchat: mymotors_212">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12.166 2c.93.001 4.01.259 5.51 3.607.51 1.147.387 3.09.307 4.393l-.01.17c-.005.077.036.148.1.186.15.092.435.198.857.198.31 0 .636-.068.905-.19.137-.062.275-.093.408-.093.27 0 .516.118.667.315a.62.62 0 0 1 .09.528c-.1.372-.527.644-1.24.876-.094.03-.196.06-.302.091-.352.101-.788.227-.907.514-.065.157-.028.352.11.574.004.005.847 1.573 2.486 1.849a.598.598 0 0 1 .5.587c0 .139-.046.271-.128.38-.308.413-1.01.7-2.149.876-.075.011-.129.074-.136.153l-.043.42c-.02.198-.19.35-.388.35-.06 0-.12-.013-.18-.04-.31-.142-.82-.31-1.457-.31-.38 0-.746.058-1.09.172-.71.235-1.348.727-1.996 1.237-.806.627-1.64 1.277-2.77 1.277-1.13 0-1.963-.65-2.77-1.277-.648-.51-1.286-1.002-1.995-1.237a3.803 3.803 0 0 0-1.09-.172c-.639 0-1.148.168-1.455.31a.416.416 0 0 1-.18.04c-.199 0-.37-.152-.39-.35l-.044-.42c-.006-.079-.06-.142-.135-.153-1.14-.175-1.842-.463-2.15-.876a.591.591 0 0 1-.126-.38.598.598 0 0 1 .5-.587c1.638-.276 2.481-1.844 2.485-1.849.139-.222.175-.417.11-.574-.118-.287-.554-.413-.906-.514a6.23 6.23 0 0 1-.303-.09c-.713-.233-1.14-.505-1.24-.877a.621.621 0 0 1 .091-.528c.15-.197.397-.315.667-.315.133 0 .271.031.407.093.27.122.597.19.906.19.427 0 .716-.108.866-.202a.217.217 0 0 0 .095-.183l-.01-.167c-.082-1.308-.207-3.254.3-4.402C8.156 2.26 11.235 2 12.166 2z"/>
+            </svg>
+            mymotors_212
+          </a>
+          <a href="https://www.instagram.com/mymotors_" target="_blank" rel="noopener noreferrer"
+             class="social-link" aria-label="Instagram: mymotors_">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <circle cx="12" cy="12" r="4"/>
+              <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+            </svg>
+            mymotors_
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer id="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <img src="/assets/logo.png" alt="Logo AX Motors"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="footer-logo-placeholder" style="display:none;">AX</div>
+          <span class="footer-brand">AX <span>Motors</span> Marrakech</span>
+        </div>
+        <p class="footer-copy">&copy; 2025 AX Motors Marrakech. Tous droits réservés.</p>
+        <nav class="footer-nav" aria-label="Navigation pied de page">
+          <a href="#fleet">Flotte</a>
+          <a href="#tours">Circuits</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Navbar scroll behaviour ──
+    const navbar = document.getElementById('navbar');
+    const onScroll = () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // ── Fade-in on scroll (IntersectionObserver) ──
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -32px 0px' });
+
+    // Hero elements trigger immediately on load
+    const heroFades = document.querySelectorAll('#hero .fade-in');
+    heroFades.forEach(el => {
+      setTimeout(() => el.classList.add('visible'), 100);
+    });
+
+    // Observe all non-hero fade elements
+    fadeEls.forEach(el => {
+      if (!el.closest('#hero')) observer.observe(el);
+    });
+
+    // ── Smooth scroll for anchor links ──
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        const target = document.querySelector(link.getAttribute('href'));
+        if (!target) return;
+        e.preventDefault();
+        const offset = navbar.offsetHeight + 8;
+        const top = target.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
+      });
+    });
+
+    // ── Image fallback: ensure placeholders show if images fail ──
+    document.querySelectorAll('.bike-img-wrap img, .nav-logo img, .footer-logo img').forEach(img => {
+      if (img.complete && img.naturalHeight === 0) {
+        img.dispatchEvent(new Event('error'));
+      }
+    });
+  </script>
+</body>
+</html>
