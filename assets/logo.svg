@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="gGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#BF953F"/>
+      <stop offset="35%"  stop-color="#FCF6BA"/>
+      <stop offset="65%"  stop-color="#B38728"/>
+      <stop offset="100%" stop-color="#FBF5B7"/>
+    </linearGradient>
+    <linearGradient id="gSilver" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#A8A8A8"/>
+      <stop offset="45%"  stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#888888"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Outer gold ring -->
+  <circle cx="100" cy="100" r="93" fill="none" stroke="url(#gGold)" stroke-width="4.5"/>
+  <!-- Inner gold ring -->
+  <circle cx="100" cy="100" r="85" fill="none" stroke="url(#gGold)" stroke-width="1.2" opacity="0.7"/>
+
+  <!-- MY monogram
+       Left outer  : M left leg    (52,128)→(74,58)
+       Left inner  : Y left arm    (74,58) →(100,94)
+       Right inner : Y right arm   (100,94)→(126,58)
+       Right outer : M right leg   (126,58)→(148,128)
+       Y stem      : center down   (100,94)→(100,128)
+  -->
+  <g filter="url(#glow)">
+    <!-- M outer legs -->
+    <line x1="52"  y1="128" x2="74"  y2="58"  stroke="url(#gSilver)" stroke-width="10" stroke-linecap="round"/>
+    <line x1="148" y1="128" x2="126" y2="58"  stroke="url(#gSilver)" stroke-width="10" stroke-linecap="round"/>
+    <!-- Y arms (M inner diagonals) -->
+    <line x1="74"  y1="58"  x2="100" y2="94"  stroke="url(#gSilver)" stroke-width="10" stroke-linecap="round"/>
+    <line x1="126" y1="58"  x2="100" y2="94"  stroke="url(#gSilver)" stroke-width="10" stroke-linecap="round"/>
+    <!-- Y stem -->
+    <line x1="100" y1="94"  x2="100" y2="128" stroke="url(#gSilver)" stroke-width="10" stroke-linecap="round"/>
+  </g>
+
+  <!-- Separator -->
+  <line x1="62" y1="138" x2="138" y2="138" stroke="url(#gGold)" stroke-width="0.8" opacity="0.8"/>
+
+  <!-- MOTORS -->
+  <text
+    x="100" y="154"
+    text-anchor="middle"
+    font-family="'Arial', 'Helvetica Neue', sans-serif"
+    font-size="13.5"
+    font-weight="700"
+    letter-spacing="5"
+    fill="url(#gGold)">MOTORS</text>
+</svg>
