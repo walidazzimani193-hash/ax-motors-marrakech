@@ -281,31 +281,70 @@
       box-shadow: 0 24px 48px rgba(0,0,0,0.5);
       border-color: var(--gold);
     }
-    .bike-img-wrap {
+    .bike-slider {
+      position: relative;
       width: 100%;
       aspect-ratio: 16 / 10;
       overflow: hidden;
       background: var(--bg3);
-      position: relative;
     }
-    .bike-img-wrap img {
-      width: 100%;
+    .bike-slider-track {
+      display: flex;
+      width: 200%;
+      height: 100%;
+      transition: transform 0.45s cubic-bezier(0.4,0,0.2,1);
+    }
+    .bike-slider-track img {
+      width: 50%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.4s ease;
+      flex-shrink: 0;
     }
-    .bike-card:hover .bike-img-wrap img { transform: scale(1.04); }
-    .bike-img-placeholder {
-      width: 100%;
-      height: 100%;
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.55);
+      border: none;
+      color: #fff;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--muted);
-      font-weight: 600;
-      font-size: 0.9rem;
-      text-align: center;
-      padding: 16px;
+      z-index: 3;
+      font-size: 1.2rem;
+      line-height: 1;
+      transition: background 0.2s;
+      opacity: 0;
+      transition: opacity 0.2s, background 0.2s;
+    }
+    .bike-card:hover .slider-btn { opacity: 1; }
+    .slider-btn:hover { background: var(--gold); }
+    .slider-btn.prev { left: 10px; }
+    .slider-btn.next { right: 10px; }
+    .slider-dots {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 7px;
+      z-index: 3;
+    }
+    .slider-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.45);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .slider-dot.active {
+      background: var(--gold);
+      transform: scale(1.25);
     }
     .bike-body {
       padding: 24px;
@@ -780,10 +819,17 @@
 
         <!-- Honda X-ADV -->
         <article class="bike-card fade-in fade-in-d1">
-          <div class="bike-img-wrap">
-            <img src="assets/bike-xadv.jpg" alt="Honda X-ADV scooter aventure"
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-            <div class="bike-img-placeholder" style="display:none;">Honda X-ADV</div>
+          <div class="bike-slider">
+            <div class="bike-slider-track">
+              <img src="assets/bike-xadv.jpg" alt="Honda X-ADV scooter aventure" />
+              <img src="assets/bike-xadv-2.jpg" alt="Honda X-ADV vue 2" />
+            </div>
+            <button class="slider-btn prev" aria-label="Photo précédente">&#8249;</button>
+            <button class="slider-btn next" aria-label="Photo suivante">&#8250;</button>
+            <div class="slider-dots">
+              <span class="slider-dot active"></span>
+              <span class="slider-dot"></span>
+            </div>
           </div>
           <div class="bike-body">
             <h3 class="bike-name">Honda X-ADV</h3>
@@ -805,10 +851,17 @@
 
         <!-- Ténéré World Raid -->
         <article class="bike-card fade-in fade-in-d2">
-          <div class="bike-img-wrap">
-            <img src="assets/bike-tenere-wr.jpg" alt="Yamaha Ténéré World Raid"
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-            <div class="bike-img-placeholder" style="display:none;">Ténéré World Raid</div>
+          <div class="bike-slider">
+            <div class="bike-slider-track">
+              <img src="assets/bike-tenere-wr.jpg" alt="Yamaha Ténéré World Raid" />
+              <img src="assets/bike-tenere-wr-2.jpg" alt="Ténéré World Raid vue 2" />
+            </div>
+            <button class="slider-btn prev" aria-label="Photo précédente">&#8249;</button>
+            <button class="slider-btn next" aria-label="Photo suivante">&#8250;</button>
+            <div class="slider-dots">
+              <span class="slider-dot active"></span>
+              <span class="slider-dot"></span>
+            </div>
           </div>
           <div class="bike-body">
             <h3 class="bike-name">Ténéré World Raid</h3>
@@ -830,10 +883,17 @@
 
         <!-- Ténéré 700 2025 -->
         <article class="bike-card fade-in fade-in-d3">
-          <div class="bike-img-wrap">
-            <img src="assets/bike-tenere700.jpg" alt="Yamaha Ténéré 700 2025"
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-            <div class="bike-img-placeholder" style="display:none;">Ténéré 700 2025</div>
+          <div class="bike-slider">
+            <div class="bike-slider-track">
+              <img src="assets/bike-tenere700.jpg" alt="Yamaha Ténéré 700 2025" />
+              <img src="assets/bike-tenere700-2.jpg" alt="Ténéré 700 2025 vue 2" />
+            </div>
+            <button class="slider-btn prev" aria-label="Photo précédente">&#8249;</button>
+            <button class="slider-btn next" aria-label="Photo suivante">&#8250;</button>
+            <div class="slider-dots">
+              <span class="slider-dot active"></span>
+              <span class="slider-dot"></span>
+            </div>
           </div>
           <div class="bike-body">
             <h3 class="bike-name">Ténéré 700 2025</h3>
@@ -1085,7 +1145,23 @@
     });
 
     // ── Image fallback: ensure placeholders show if images fail ──
-    document.querySelectorAll('.bike-img-wrap img, .nav-logo img, .footer-logo img').forEach(img => {
+    document.querySelectorAll('.bike-slider').forEach(slider => {
+      const track = slider.querySelector('.bike-slider-track');
+      const dots = slider.querySelectorAll('.slider-dot');
+      const prev = slider.querySelector('.slider-btn.prev');
+      const next = slider.querySelector('.slider-btn.next');
+      let current = 0;
+      function goTo(index) {
+        current = index;
+        track.style.transform = `translateX(-${current * 50}%)`;
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      }
+      prev.addEventListener('click', () => goTo(current === 0 ? 1 : 0));
+      next.addEventListener('click', () => goTo(current === 0 ? 1 : 0));
+      dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+    });
+
+    document.querySelectorAll('.nav-logo img, .footer-logo img').forEach(img => {
       if (img.complete && img.naturalHeight === 0) {
         img.dispatchEvent(new Event('error'));
       }
